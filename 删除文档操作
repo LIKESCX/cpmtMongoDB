@@ -19,4 +19,4 @@ db.stus.remove({age:28},true)
 //清空集合(性能略差)
 db.stus.remove({})
 //删除集合
-db.stus.drop(); -- 不是清空集合而是删除集合
+db.stus.drop(); -- 不是清空集合而是删除集合,（当数据库中仅有此一个集合时）所属的数据库也被删除了。
