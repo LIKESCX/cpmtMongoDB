@@ -1,0 +1,71 @@
+1.进入my_test数据库
+	use my_test;
+	
+2.向数据库的users集合中插入一个文档
+	db.users.insert({
+		username:"sunwukong"
+	});
+	show dbs;
+	show collections;
+	
+3.查询users集合中的文档
+	db.users.find({});
+	
+4.向数据库的users集合中插入一个文档
+	db.users.insert({
+		username:"zhubajie"
+	});
+
+5.查询users集合中的文档
+	db.users.find({});
+
+6.统计数据库中users集合中的文档数量
+	db.users.find().count();
+	
+7.查询数据库users集合中username为sunwukong的文档
+	db.users.find({username:"sunwukong"});		
+
+8.向数据库中users集合中username为sunwukong的文档，添加一个address属性，属性值为huaguoshan
+	db.users.update({username:"sunwukong"},{$set:{address:"huaguoshan"}});	
+
+9.使用{username:"tangseng"} 替换usernname为zhubajie的文档。
+	db.users.update({username:"zhubajie"},{username:"tangseng"})
+	
+10.删除username为sunwukong的文档的address属性
+	db.users.update({username:"sunwukong"},{$unset:{address:1}})
+
+ 11.向username为sunwukong的文档中，添加一个hobby:{cities:["beijing","shanghai","shenzhen"],movies:["sanguo","hero"]}
+	//MongoDB的属性值也可以是一个文档，当一个文档的属性值是一个文档时，我们称这个文档叫做 内嵌文档。
+	db.users.update({username:"sunwukong"},{$set:{hobby:{cities:["beijing","shanghai","shenzhen"],movies:["sanguo","hero"]}}});
+
+12.向username为tangseng的文档中，添加一个hobby:{movies:["A Chinese Odyssey","King of comedy"]}
+	db.users.update({username:"tangseng"},{$set:{hobby:{movies:["A Chinese Odyssey","King of comedy"]}}})
+	
+13.查询喜欢电影hero的文档。
+	//MongoDB支持直接通过内嵌文档的属性进行查询，如果要查询内嵌文档可以通过 . 的形式来匹配
+	//如果通过内嵌文档来对文档进行查询，此时属性名必须使用引号
+		"hobby.movies":"hero"   表明movies数组中只要含有hero元素就符合条件，查询返回。
+	db.users.find({"hobby.movies":"hero"})	
+
+14.向tangseng中添加一个新电影Interstellar。
+	//$push 用于向数组中添加一个新元素。不考虑重复问题
+	//$addToSet 也是用于向数组中添加一个新元素。二者的区别在于 如果数组中已经存在了该元素，则不会添加。
+	db.users.update({username:"tangseng"},{$push:{"hobby.movies":"Interstellar"}});
+	db.users.update({username:"tangseng"},{$addToSet:{"hobby.movies":"Interstellar"}});
+
+15. 删除喜欢北京的用户。	
+	db.users.remove({"hobby.cities":"beijing"});
+
+16.删除users集合
+	db.users.drop();
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

@@ -1,53 +1,22 @@
 /*
-	修改
-		db.<collection>.update(查询条件,新对象)
-			- update() 默认情况下会使用新对象替换旧对象
-			- 如果需要修改指定的属性，而不是替换需要使用“修改操作符”来完成修改
-		db.<collection>.update(查询条件,{$set:{修改条件}})
-				$set 可以用来修改文档中的指定属性
-				$unset 可以用来删除文档中的指定属性
-			- update() 默认只会修改一个符合条件的文档对象 如若支持修改多个符合条件的文档
-						-- 需要db.<collection>.update(查询条件,{$set:{修改条件}},{multi:true})
-		db.<collection>.updateMany()
-			- 同时修改多个符合条件的文档
-		db.<collection>.updateOne()
-			- 修改一个符合条件的文档
-		db.<collection>.replaceOne()
-			-替换一个文档	
+	删除
+	db.<collection>.remove()
+		- remove() 可以根据条件来删除文档，传递的条件的方式和find()一样,但是remove()必须传参，不传参报错
+					  如果只传递一个空对象 remove({})则会删除集合中的所有文档。
+		- remove() 删除符合条件的所有文档(默认情况下删除多个和deleteMany()一样)。
+					   如果remove()第二个参数传递一个true,则只会删除一个
+	db.<collection>.deleteOne()
+	db.<collection>.deleteMany()
+	
+	db.<collection>.drop();
+		- drop() 删除指定集合
+	db.dropDatabase();	删除数据库
+		- 一般数据库中的数据都不会删除，所以删除的方法很少使用。	
 */
-示例
-use test
-db.stus.insert({"_id":"hello1",name:"沙和尚",age:18,gender:"男"}) 
-
 db.stus.find({})
-{
-  "_id" : "hello1",
-  "name" : "沙和尚",
-  "age" : 18,
-  "gender" : "男"
-}
-//替换 慎用
-db.stus.update({name:"沙和尚"},{age:19})
-db.stus.find({})
-
-{
-  "_id" : "hello1",
-  "age" : 19
-}
-
--- $set 可以用来修改文档中的指定属性
-db.stus.update(
-{"_id" : "hello1"},
-{$set:{
-    name:"沙河尚",          -- 若_id : "hello1"指定的对象中无此属性则添加，有则修改。
-    gender:"男"              -- 同上 
-}}
-)
-
--- $unset 可以用来删除文档中的指定属性
-db.stus.update(
-{"_id" : "hello1"},
-{$unset:{
-    name:1,          -- 因为是删除name属性，这里设置的值多少无所谓。 
-}}
-)
+db.stus.remove({_id:"hello1"})
+db.stus.remove({age:28},true)
+//清空集合(性能略差)
+db.stus.remove({})
+//删除集合
+db.stus.drop(); -- 不是清空集合而是删除集合
