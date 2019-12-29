@@ -1,0 +1,21 @@
+向数据库中插入文档
+ 	db.<collection>.insert()
+	 	- 向集合中插入一个或多个文档
+	 	- 当我们向集合中插入文档时，如果没有给文档指定_id属性，则数据库会自动为文档插入_id
+	 		该属性用来作为文档的唯一标识
+	 	- _id我们可以自己指定，如果我们指定了，数据库就不会再添加了，如果自己指定_id也必须确保它的唯一性。
+ 	db.<collection>.insertOne() 
+ 		- 只能向集合中插入一条文档对象，否则报错。
+ 	db.<collection>.insertMany()
+ 		- 只能向集合中插入数组形式的多个文档，否则报错。
+ 	db.<collection>.insert()是db.<collection>.insertOne()和db.<collection>.insertMany()的合体。
+ 	但是单独的insertOne()和insertMany()看起来更清晰些。
+db.stus.insert({name:"孙悟空",age:18,gender:"男"})  #插入一条
+
+db.stus.insert([
+{name:"孙悟空",age:18,gender:"男"},
+{name:"猪八戒",age:17,gender:"男"},
+{name:"沙和尚",age:16,gender:"男"},
+])  #插入多条
+
+db.stus.insert({"_id":"hello",name:"孙悟空",age:18,gender:"男"})  #插入一条

@@ -1,0 +1,25 @@
+/*
+	查询
+		db.<collection>.find()
+			- find() 用来查询当前数据库下的指定集合中所有符合条件的文档。
+			- find() 可以接收一个对象作为条件参数
+				  {} 用来查询集合中所有的文档
+				  {属性:值} 查询属性指定是指定值的文档
+			- find() 返回的是一个数组
+		db.<collection>.findOne()
+			- 用来查询集合中符合条件的第一个文档
+			- findOne() 返回的是一个对象
+		db.<collection>.find({}).count()
+			- 查询所有结果的数量
+*/				
+db.stus.find()
+
+db.stus.find({})等价于db.stus.find()  #当{ }内什么也不传的时候
+
+db.stus.find({_id:"hello"})
+db.stus.find({age:18})
+db.stus.find({age:18})[0] 效果等价于db.<collection>.findOne() 
+db.stus.find({_id:"hello",age:18}) #多个属性之间是且的关系，只有同时满足的才符合条件。
+
+db.<collection>.findOne({age:18}).name #可以 返回name值
+db.stus.find({age:18}).name #报错
