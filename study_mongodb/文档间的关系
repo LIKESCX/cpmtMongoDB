@@ -1,3 +1,94 @@
 /*
+	文档之间的关系
+	
+		一对一（one to one）
+			-夫妻 （一个丈夫 对应 一个妻子）	
+			-在MongoDB 可以通过内嵌文档的形式来体现一对一的关系
 		
+		一对多（one to many）/多对一（many to one） 这种实际开发中用的最多
+			- 父母 - 孩子
+			  用户 - 订单 
+			  文章  - 评论
+			 - 也可以通过内嵌文档来映射一对的关系
+			 
+	      多对多（many to many）
+	      -	 分类  - 商品
+	      	 老师  - 学生
+	      	 
 */
+
+实例：一对一  妻子和丈夫
+db.wifeAndHusband.insert([
+	{
+		name:"黄蓉",
+		husband:{
+			name:"郭靖"
+		}
+	},
+	{
+		name:"潘金莲",
+		husband:{
+			name:"武大郎"
+		}
+	}
+]);
+
+db.wifeAndHusband.find();
+
+实例：一对多  用户（users）和订单（orders）
+	db.users.insert([
+		{
+			name:"swk",
+		},
+		{
+			name:"zbj",
+		}
+	])
+	
+	db.orders.insert(
+	[
+		{
+			list:["order_id001","order_id002","order_id003"],
+			user_id:ObjectId("5e100093d6f66422eebffaa1")
+		},
+		{
+			list:["order_id004","order_id005"],
+			user_id:ObjectId("5e100093d6f66422eebffaa1")
+		},
+		{
+			list:["order_id005","order_id006"],
+			user_id:ObjectId("5e100093d6f66422eebffaa2")
+		}
+	]
+	)
+//查找swk的订单
+
+var user_id = db.users.findOne({name:"swk"})._id;
+db.orders.find({user_id:user_id});	
+
+实例：多对多 
+db.teachers.insert([
+	{name:"洪七公"},
+	{name:"黄药师"},
+	{name:"龟仙人"}
+])
+db.teachers.find({});
+db.stus.insert([
+	{
+		name:"郭靖",
+		tech_ids:[
+			ObjectId("5e1004fed6f66422eebffaa7"),
+			ObjectId("5e1004fed6f66422eebffaa8"),
+		]
+	},
+	{
+		name:"孙悟空",
+		tech_ids:[
+			ObjectId("5e1004fed6f66422eebffaa7"),
+			ObjectId("5e1004fed6f66422eebffaa8"),
+			ObjectId("5e1004fed6f66422eebffaa9")
+		]
+	}
+]);
+db.stus.find({});
+
