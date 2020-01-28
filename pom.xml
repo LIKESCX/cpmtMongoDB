@@ -21,6 +21,8 @@
 		<spring-cloud.version>Edgware.RELEASE</spring-cloud.version>
 	</properties>
 	<repositories>
+		<!-- 下载依赖时： 三者的级先是 pom.xml > /home_dir/.m2/settings.xml > /maven_dir/conf/settings.xml -->
+		<!-- 这里最好不要用官方的，可以用阿里云的，或者这里不配置 -->
 		<!-- <repository>
 			<id>central-repos</id>
 			<name>Central Repository</name>
