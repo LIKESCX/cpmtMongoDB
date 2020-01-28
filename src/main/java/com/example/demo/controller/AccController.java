@@ -51,6 +51,7 @@ public class AccController {
 		 * 定义方法名的规则为：find + By + 属性名（首字母大写），如：根据设备Mac查询Customer 仓库中添加的方法：
 		 */
 		
+
 		Customer cus = repository.findByDevcMac("FCE998A1E7EF");
 		System.out.println(cus);
 		//于上面的findByDevcMac等价 mongoTemplate比MongoRepository语法上更灵活一些。
