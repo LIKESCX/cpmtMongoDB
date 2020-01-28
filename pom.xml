@@ -5,6 +5,7 @@
 	<groupId>com.example</groupId>
 	<artifactId>cpmtMongoDB</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
 	<name>cpmtMongoDB</name>
 	<description>Demo project for Spring Boot</description>
 	<parent>
@@ -20,11 +21,11 @@
 		<spring-cloud.version>Edgware.RELEASE</spring-cloud.version>
 	</properties>
 	<repositories>
-		<repository>
+		<!-- <repository>
 			<id>central-repos</id>
 			<name>Central Repository</name>
 			<url>http://repo.maven.apache.org/maven2</url>
-		</repository>
+		</repository> -->
 	</repositories>
 	<dependencyManagement>
 		<dependencies>
